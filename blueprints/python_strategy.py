@@ -1,6 +1,8 @@
 # blueprints/python_strategy.py
 from flask import Blueprint, render_template, request, jsonify, session, flash, redirect, url_for
 import os
+import subprocess
+import time
 import glob
 from utils.python_strategy_manager import (
     get_all_strategy_statuses, activate_strategy, deactivate_strategy,
@@ -327,6 +329,38 @@ def details(strategy_filename):
         stocks=stocks,
         stocks_csv_path_display=stocks_csv_path_display
     )
+
+
+@python_strategy_bp.route('/launch_analysis')
+@check_session_validity
+def launch_analysis():
+    # Get the absolute path to the Trading_journal directory
+    # Assumes this blueprint file is in a directory like 'project_root/blueprints/'
+    # And Trading_journal is in 'project_root/Trading_journal/'
+    trading_journal_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Trading_journal'))
+
+    # Command to run the Dash app as a module
+    command = ['python', '-m', 'app.main']
+
+    try:
+        # Start the Dash app as a subprocess
+        # The current working directory (cwd) is set to trading_journal_dir,
+        # so Python can find the 'app.main' module.
+        dash_process = subprocess.Popen(command, cwd=trading_journal_dir)
+        # Add a short delay to allow the Dash server to start
+        time.sleep(3) # Adjust sleep time as necessary
+
+        # Redirect the user to the Dash app URL
+        # Ensure Dash app is running on 127.0.0.1:8051 (this should be configured in Dash app's main.py)
+        return redirect('http://127.0.0.1:8051')
+
+    except FileNotFoundError: # This might occur if 'python' executable is not found
+        flash("Error: Python executable not found. Please ensure Python is installed and in PATH.", "error")
+        return redirect(url_for('python_strategy_bp.index'))
+    except Exception as e:
+        flash(f"An error occurred while launching the analysis: {str(e)}", "error")
+        # Optionally, log the error `current_app.logger.error(f"Failed to launch Dash app: {e}")`
+        return redirect(url_for('python_strategy_bp.index'))
 
 @python_strategy_bp.route('/deactivate/<strategy_filename>', methods=['POST'])
 @check_session_validity
