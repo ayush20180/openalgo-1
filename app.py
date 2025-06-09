@@ -29,10 +29,7 @@ from blueprints.chartink import chartink_bp  # Import the chartink blueprint
 from blueprints.traffic import traffic_bp  # Import the traffic blueprint
 from blueprints.latency import latency_bp  # Import the latency blueprint
 from blueprints.strategy import strategy_bp  # Import the strategy blueprint
-
 from blueprints.python_strategy import python_strategy_bp
-
-from blueprints.master_contract_status import master_contract_status_bp  # Import the master contract status blueprint
 
 from restx_api import api_v1_bp, api
 
@@ -50,6 +47,12 @@ from database.strategy_db import init_db as ensure_strategy_tables_exists
 from utils.plugin_loader import load_broker_auth_functions
 
 import os
+import subprocess # Adding imports that will likely be needed
+import atexit
+import sys
+
+# Global variable for Dash subprocess
+dash_subprocess = None
 
 def create_app():
     # Initialize Flask application
@@ -146,11 +149,7 @@ def create_app():
     app.register_blueprint(traffic_bp)
     app.register_blueprint(latency_bp)
     app.register_blueprint(strategy_bp)
-
     app.register_blueprint(python_strategy_bp)
-
-    app.register_blueprint(master_contract_status_bp)
-
 
     # Initialize latency monitoring (after registering API blueprint)
     with app.app_context():
