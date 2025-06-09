@@ -1,0 +1,335 @@
+/* Basic Custom CSS for Trading Journal App */
+
+/* --- General Layout & Body --- */
+html, body {
+    height: 100%; /* Ensure html and body take full height */
+    margin: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Default background and color for light theme, can be overridden by dbc.themes.BOOTSTRAP */
+    background-color: #f8f9fa; /* A light grey, common for Bootstrap light themes */
+    color: #212529;      /* Default dark text color */
+}
+
+#app-container {
+    min-height: 100vh; /* Ensure the app container tries to fill the viewport height */
+    display: flex; /* Use flexbox for layout if sidebar and content are direct children */
+    flex-direction: column; /* Stack children vertically if header/footer are part of app-container */
+}
+
+/* If app-container directly holds sidebar and content row */
+/* #app-container > .row { flex-grow: 1; } */
+
+/* --- Main Content Area --- */
+#content-area {
+    padding: 1.5rem; /* Add some padding to the main content area */
+    flex-grow: 1; /* Allow content area to take available space if using flex on parent */
+    /* background-color: #ffffff; /* Optional: if content area needs distinct background from body */
+}
+
+
+/* --- Sidebar Styling (General & Light Theme) --- */
+#sidebar {
+    background-color: #f8f9fa; /* Explicit light theme sidebar background */
+    padding: 1rem;
+    height: 100vh; /* Full viewport height */
+    position: sticky;
+    top: 0;
+    overflow-y: auto; /* Allow sidebar to scroll if content exceeds height */
+    border-right: 1px solid #dee2e6; /* Subtle border for light theme */
+    /* width: 280px; /* Example fixed width, adjust as needed */
+    /* flex-shrink: 0; /* Prevent sidebar from shrinking if using flex */
+}
+
+#sidebar h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c757d; /* Muted color for sidebar section titles */
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+#sidebar hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+#sidebar .nav-link {
+    color: #495057; /* Darker, more subtle link color for light theme */
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.25rem; /* Spacing between nav items */
+    border-radius: 0.375rem; /* Consistent rounded corners */
+    display: flex; /* For aligning icons and text */
+    align-items: center; /* For aligning icons and text */
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#sidebar .nav-link i {
+    margin-right: 0.75rem; /* Increased space for icon */
+    width: 1.25em; /* Ensure icons align well if they vary in width */
+    text-align: center;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #e9ecef; /* Hover effect for light theme */
+    color: #007bff;
+}
+
+#sidebar .nav-link.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+}
+
+/* Sidebar Accordion for Filters */
+#sidebar-accordion-filters .accordion-button {
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+}
+
+#sidebar-accordion-filters .accordion-item {
+    border: none; /* Remove default accordion item border if it clashes */
+}
+
+#sidebar-accordion-filters .accordion-body {
+    padding: 1rem; /* Adjust padding for filter content */
+}
+
+/* --- Card Styling (General & Light Theme) --- */
+.card {
+    margin-bottom: 1.5rem; /* Add some space below cards */
+    border: 1px solid #e0e0e0; /* Softer border for light theme */
+    border-radius: 0.375rem; /* Consistent rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,.05); /* Subtle shadow for depth */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,.07);
+}
+
+.card-header {
+    font-weight: 500;
+    background-color: #f8f9fa; /* Light header for light theme */
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.75rem 1.25rem;
+}
+
+.card-title {
+    margin-bottom: 0; /* Remove default h4 margin if it's too much */
+    font-size: 1.1rem; /* Slightly adjust card title size */
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* --- Utility Classes --- */
+.full-height {
+    height: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.icon-margin {
+    margin-right: 8px; /* For icons in buttons or other elements */
+}
+
+/* --- Dark Theme Specific Styles --- */
+/* These styles apply when 'app-container-dark' class is on the main dbc.Container */
+
+.app-container-dark {
+    /* The dbc.themes.DARKLY will set the body background. 
+       Specific container background/color can be set here if needed to override body.
+       For now, assuming DARKLY theme handles body, and this class fine-tunes children.
+    */
+}
+
+/* Sidebar in Dark Mode */
+.app-container-dark #sidebar {
+    background-color: #212529; /* Dark sidebar background */
+    border-right: 1px solid #343a40; /* Subtle border for dark theme */
+}
+
+.app-container-dark #sidebar h4 {
+    color: #adb5bd; /* Lighter muted color for sidebar section titles in dark mode */
+}
+
+.app-container-dark #sidebar hr {
+    border-top: 1px solid #343a40;
+}
+
+.app-container-dark #sidebar .nav-link {
+    color: #adb5bd; /* Lighter text for dark sidebar */
+}
+
+.app-container-dark #sidebar .nav-link:hover {
+    background-color: #343a40; /* Hover effect for dark theme */
+    color: #0d6efd; /* Brighter blue for hover in dark mode */
+}
+
+.app-container-dark #sidebar .nav-link.active {
+    background-color: #0d6efd; /* Primary blue for active link in dark mode */
+    color: white;
+}
+
+/* Sidebar Accordion for Filters in Dark Mode */
+.app-container-dark #sidebar-accordion-filters .accordion-button {
+    background-color: #2c3034;
+    color: #f8f9fa;
+    border-bottom: 1px solid #343a40;
+}
+
+.app-container-dark #sidebar-accordion-filters .accordion-button:not(.collapsed) {
+    background-color: #343a40;
+}
+
+.app-container-dark #sidebar-accordion-filters .accordion-body {
+    background-color: #212529; /* Match sidebar background */
+    padding: 1rem;
+}
+
+/* Cards in Dark Mode */
+.app-container-dark .card {
+    background-color: #2c3034; /* Card background in dark mode */
+    border-color: #3e444a; /* Slightly adjusted dark border */
+    color: #f8f9fa; /* Light text on dark cards */
+    box-shadow: 0 2px 4px rgba(0,0,0,.15); /* Darker shadow for dark mode */
+}
+
+.app-container-dark .card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+}
+
+.app-container-dark .card-header {
+    background-color: #343a40; /* Card header background in dark mode */
+    border-bottom-color: #3e444a;
+    color: #f8f9fa;
+}
+
+.app-container-dark .card-title {
+    color: #f8f9fa;
+}
+
+/* Plotly graphs text color in dark mode */
+.app-container-dark .js-plotly-plot .plotly text,
+.app-container-dark .js-plotly-plot .plotly .xtick text,
+.app-container-dark .js-plotly-plot .plotly .ytick text,
+.app-container-dark .js-plotly-plot .plotly .legendtext {
+    fill: #f8f9fa !important; /* Light text for graph elements */
+}
+
+/* Ensure graph background is transparent to show card/container background */
+.app-container-dark .js-plotly-plot .plotly .main-svg,
+.app-container-dark .js-plotly-plot .plotly .svg-container {
+    background-color: transparent !important; 
+}
+
+/* DataTable in Dark Mode */
+.app-container-dark .dash-table-container .dash-fixed-content table,
+.app-container-dark .dash-table-container .dash-fixed-content th,
+.app-container-dark .dash-table-container .dash-fixed-content td {
+    background-color: #2c3034 !important; /* Match card background */
+    color: #f8f9fa !important;
+    border-color: #495057 !important;
+}
+
+.app-container-dark .dash-table-container .dash-fixed-content th {
+    background-color: #343a40 !important; /* Match card header background */
+}
+
+/* Form elements in Dark Mode */
+.app-container-dark .form-control,
+.app-container-dark .form-select,
+.app-container-dark .dbc-input-group-addon {
+    background-color: #495057;
+    color: #f8f9fa;
+    border-color: #6c757d;
+}
+
+.app-container-dark .form-control::placeholder {
+    color: #adb5bd;
+}
+
+/* Theme switch label in Dark Mode */
+.app-container-dark .form-switch .form-check-label {
+    color: #f8f9fa; 
+}
+
+/* --- Header Styling --- */
+.my-4.h1, h1.my-4 { /* Targeting the main dashboard title */
+    font-size: 1.75rem; /* Adjust size as needed */
+    font-weight: 600;
+}
+
+.app-container-dark .my-4.h1,
+.app-container-dark h1.my-4 {
+    color: #e9ecef;
+}
+
+/* --- Upload Component Styling --- */
+#upload-data {
+    border-color: #ced4da;
+    transition: border-color 0.2s ease;
+}
+
+#upload-data:hover {
+    border-color: #007bff;
+}
+
+.app-container-dark #upload-data {
+    border-color: #495057;
+    background-color: #2c3034;
+    color: #adb5bd;
+}
+
+.app-container-dark #upload-data:hover {
+    border-color: #0d6efd;
+}
+
+.app-container-dark #upload-data div a {
+    color: #58a6ff; /* Lighter link color for dark mode upload */
+}
+
+/* --- Table Styling Enhancements --- */
+.dash-table-container .dash-fixed-content th {
+    font-weight: 600; /* Make table headers slightly bolder */
+    background-color: #f8f9fa; /* Light theme header */
+}
+
+.app-container-dark .dash-table-container .dash-fixed-content th {
+    background-color: #343a40 !important; /* Dark theme header, ensure it overrides */
+    color: #f8f9fa !important;
+}
+
+.dash-table-container .dash-fixed-content td {
+    font-size: 0.9rem; /* Slightly smaller font for table data for density */
+}
+
+/* --- General Button Styling (if not covered by theme) --- */
+.btn-primary {
+    /* Example: Add slight shadow or transition if needed */
+    /* box-shadow: 0 1px 2px rgba(0,0,0,0.05); */
+}
+
+/* --- RadioItems and Dropdowns --- */
+.radio-group .form-check-label, .dropdown-group .form-label {
+    font-weight: 500;
+}
+
+.app-container-dark .radio-group .form-check-label,
+.app-container-dark .dropdown-group .form-label {
+    color: #adb5bd;
+}
+
+/* Ensure main app container takes full height if necessary */
+/* html, body, #app-container { height: 100%; margin: 0; } */
+/* #app-container > .row { min-height: 100vh; } */ /* If sidebar and content need to fill height */
